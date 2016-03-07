@@ -34,26 +34,42 @@ class QuickScan{
 
 public class Main{
 
-	int[] radius ;
-
 	public static void main(String[] args){
 
 		QuickScan input = new QuickScan();
 		PrintWriter output = new PrintWriter(System.out, false);
 
-		this.radius = new int[10001];
+		int []radius = new int[10001];
+		int []sofar = new int[10002];
 
 		int n = input.nextInt();
 		while(n != 0){
 			for(int i=0;i<n;++i){
-				this.radius[i] = input.nextInt();
+				radius[i] = input.nextInt();
 			}
+
+			Arrays.sort(radius, 0, n);
+
+			sofar[0] = 0;
+			for(int i=0;i<n;++i){
+				sofar[i+1] = sofar[i] + radius[i];
+			}
+
+			Boolean finded = false;
+			for(int i=n-1;i>=0;--i){
+				if( radius[i] <= sofar[i] ){
+					output.printf("%d%n", i+1);
+					finded = true;
+					break;
+				}
+			}
+			if(!finded)
+				output.printf("0%n");
 
 			n = input.nextInt();
 		}
+		
+		output.flush();
 	}
 
-	static Boolean isOK(){
-		
-	}
 }
