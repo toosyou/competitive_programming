@@ -1,11 +1,11 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-class QuickScan{
+class QuickScanner{
 	BufferedReader buffer;
 	StringTokenizer tok;
 
-	QuickScan(){
+	QuickScanner(){
 		buffer = new BufferedReader(new InputStreamReader(System.in));
 	}
 
@@ -33,27 +33,31 @@ class QuickScan{
 }
 
 public class Main{
-
-	int[] radius ;
-
 	public static void main(String[] args){
-
-		QuickScan input = new QuickScan();
-		PrintWriter output = new PrintWriter(System.out, false);
-
-		this.radius = new int[10001];
-
-		int n = input.nextInt();
-		while(n != 0){
-			for(int i=0;i<n;++i){
-				this.radius[i] = input.nextInt();
+		QuickScanner input = new QuickScanner();
+		PrintWriter output = new PrintWriter(System.out, true);
+		Comparator<Integer> c = new Comparator<Integer>(){
+			public int compare(int a, int b){
+				return a > b ? 1 : -1;
 			}
+		};
+		PriorityQueue lowQueue = new PriorityQueue(c);
+		PriorityQueue highQueue = new PriorityQueue(c);
 
-			n = input.nextInt();
+		while( input.hasNext() ){
+
+			
+			int inputCommand = input.nextInt();
+			while( inputCommand != 0 ){
+
+				lowQueue.add(inputCommand);
+
+				inputCommand = input.nextInt();
+			}
+			int tmp = 0;
+			while( (tmp = lowQueue.poll())!=null ){
+				output.printf("%d ", tmp);
+			}
 		}
-	}
-
-	static Boolean isOK(){
-		
 	}
 }
